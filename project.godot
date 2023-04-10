@@ -11,5 +11,17 @@ config_version=5
 [application]
 
 config/name="Corn Maze"
+run/main_scene="res://combat.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="viewport"
+window/stretch/scale=4.0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
