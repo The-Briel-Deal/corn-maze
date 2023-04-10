@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://deyf5q0xg8sw7"]
+
+[ext_resource type="Texture2D" uid="uid://csvjsf0xwdbcb" path="res://assets/sprite/player-minigame-sprite.png" id="1_cocai"]
+[ext_resource type="Script" path="res://scripts/mini-player.gd" id="1_hdx6d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpu02"]
+size = Vector2(6, 6)
+
+[node name="MiniPlayer" type="CharacterBody2D" groups=["player"]]
+collision_mask = 15
+script = ExtResource("1_hdx6d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cocai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dpu02")
