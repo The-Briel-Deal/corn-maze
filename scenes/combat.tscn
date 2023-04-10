@@ -164,3 +164,5 @@ script = ExtResource("1_c56gx")
 [node name="CombatBackground" type="AnimatedSprite2D" parent="."]
 position = Vector2(160, 90)
 sprite_frames = SubResource("SpriteFrames_udmax")
+
+[node name="MiniGameContent" type="Node2D" parent="."]
