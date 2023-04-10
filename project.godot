@@ -11,16 +11,18 @@ config_version=5
 [application]
 
 config/name="Corn Maze"
-run/main_scene="res://combat.tscn"
+run/main_scene="res://scenes/combat.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+config/icon="res://assets/sprite/godot-icon.svg"
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=180
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/scale=4.0
 
 [rendering]
 
