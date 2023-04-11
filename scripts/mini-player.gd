@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal death
 
 const SPEED = 30.0
 const JUMP_VELOCITY = -400.0
@@ -21,3 +22,7 @@ func _physics_process(delta):
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().is_in_group("enemy"):
+			death.emit()

@@ -1,6 +1,7 @@
 extends Node2D
 
 var player: CharacterBody2D
+var player_base_damage: int = 10
 
 var enemy_sprite: Sprite2D
 var enemy_health: int
@@ -29,6 +30,8 @@ func init(enemy_sprite: Sprite2D, enemy_health: int, sub_combat_enemy_array: Arr
 	self.enemy_sprite.name = "EnemySprite"
 	add_child(self.enemy_sprite)
 	
+	self.player.connect("death", end_combat)
+	
 func setup_combat_minigame():
 	self.player.position.x = 160
 	self.player.position.y = 140
@@ -51,6 +54,16 @@ func clear_combat_minigame():
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy.queue_free()
 
+func end_combat():
+	set_in_combat_minigame(false)
+	damage_enemy(player_base_damage * multiplier)
+	multiplier = .25
+
+func damage_enemy(damage: int):
+	enemy_health -= damage
+	get_tree().get_first_node_in_group("enemy_health").value = enemy_health
+	print(get_tree().get_first_node_in_group("enemy_health").value)
+
 func _ready():
 	var test_sprite = Sprite2D.new()
 	test_sprite.texture = load("res://assets/sprite/test-enemy-sprite.png")
@@ -64,17 +77,12 @@ func _ready():
 			Vector2i(240,150)
 		]
 	}]], 100)
-	await get_tree().create_timer(5).timeout
-	set_in_combat_minigame(true)
-	await get_tree().create_timer(5).timeout
-	set_in_combat_minigame(false)
-	await get_tree().create_timer(5).timeout
-	set_in_combat_minigame(true)
-	await get_tree().create_timer(5).timeout
-	set_in_combat_minigame(false)
-	await get_tree().create_timer(5).timeout
-	set_in_combat_minigame(true)
 
 func _process(delta):
-	multiplier += multiplier * (delta/6)
+	if in_combat_minigame:
+		multiplier += multiplier * (delta/6)
 	get_tree().get_first_node_in_group("ui_multiplier").text = "%3.2f X" % multiplier
+
+
+func _on_fight_button_pressed():
+	set_in_combat_minigame(true)
