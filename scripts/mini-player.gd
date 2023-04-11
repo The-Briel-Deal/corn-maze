@@ -9,8 +9,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-	var direction_x = Input.get_axis("ui_left", "ui_right")
-	var direction_y = Input.get_axis("ui_up", "ui_down")
+	var direction_x = Input.get_axis("left", "right")
+	var direction_y = Input.get_axis("up", "down")
 	if direction_x:
 		velocity.x = direction_x * SPEED
 	else:

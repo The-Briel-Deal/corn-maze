@@ -1,7 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://cd2qgnc6lmpd6"]
+[gd_scene load_steps=32 format=3 uid="uid://dy86kt7g6by3b"]
 
 [ext_resource type="Script" path="res://scripts/combat.gd" id="1_c56gx"]
 [ext_resource type="Texture2D" uid="uid://cjqqe3ao0o85c" path="res://assets/sprite/combat-intro.png" id="2_y280b"]
+[ext_resource type="Texture2D" uid="uid://cevbe80223vc" path="res://assets/sprite/godot-icon.svg" id="3_dnsko"]
+[ext_resource type="FontFile" uid="uid://b1mmfncgmrje8" path="res://assets/misc/Extrude.ttf" id="3_kt7ca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jn3hu"]
 atlas = ExtResource("2_y280b")
@@ -169,14 +171,24 @@ normal = Vector2(-1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kctl7"]
 normal = Vector2(1, 0)
 
+[sub_resource type="Theme" id="Theme_8j7k3"]
+
 [node name="CombatMain" type="Node2D"]
 script = ExtResource("1_c56gx")
 
 [node name="MiniGameContent" type="Node2D" parent="."]
+visible = false
 
-[node name="CombatBackground" type="AnimatedSprite2D" parent="."]
+[node name="CombatBackground" type="AnimatedSprite2D" parent="MiniGameContent"]
 position = Vector2(160, 90)
 sprite_frames = SubResource("SpriteFrames_udmax")
+
+[node name="CombatTurnContent" type="Node2D" parent="."]
+
+[node name="TestSpriteREMOVE" type="Sprite2D" parent="CombatTurnContent"]
+position = Vector2(159.75, 131.25)
+scale = Vector2(0.660156, 0.566406)
+texture = ExtResource("3_dnsko")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 8
@@ -197,3 +209,14 @@ shape = SubResource("WorldBoundaryShape2D_dsm63")
 [node name="LeftWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(68, 129)
 shape = SubResource("WorldBoundaryShape2D_kctl7")
+
+[node name="DynamicUI" type="CanvasLayer" parent="."]
+
+[node name="Multiplier" type="Label" parent="DynamicUI" groups=["ui_multiplier"]]
+offset_left = 66.0
+offset_top = 77.0
+offset_right = 110.0
+offset_bottom = 96.0
+theme = SubResource("Theme_8j7k3")
+theme_override_fonts/font = ExtResource("3_kt7ca")
+text = "1.54 X"
