@@ -1,11 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://dy86kt7g6by3b"]
+[gd_scene load_steps=36 format=3 uid="uid://dy86kt7g6by3b"]
 
 [ext_resource type="Script" path="res://scripts/combat.gd" id="1_c56gx"]
 [ext_resource type="Texture2D" uid="uid://cjqqe3ao0o85c" path="res://assets/sprite/combat-intro.png" id="2_y280b"]
 [ext_resource type="Texture2D" uid="uid://dbmwaopde4i" path="res://assets/sprite/fight-button-white.png" id="3_eji1r"]
 [ext_resource type="FontFile" uid="uid://b1mmfncgmrje8" path="res://assets/misc/Extrude.ttf" id="3_kt7ca"]
 [ext_resource type="Texture2D" uid="uid://3t684epub027" path="res://assets/sprite/item-button.png" id="4_3f4ra"]
+[ext_resource type="Texture2D" uid="uid://w80lcnvmhd25" path="res://assets/sprite/fight-button-yellow.png" id="4_d0ttf"]
 [ext_resource type="Texture2D" uid="uid://spiuriksbsst" path="res://assets/sprite/health-bar.png" id="6_1r5a4"]
+[ext_resource type="Texture2D" uid="uid://crkocduhrpi3k" path="res://assets/sprite/item-button-yellow.png" id="7_geuww"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jn3hu"]
 atlas = ExtResource("2_y280b")
@@ -187,21 +189,23 @@ sprite_frames = SubResource("SpriteFrames_udmax")
 
 [node name="CombatTurnContent" type="Node2D" parent="."]
 
-[node name="FightButton" type="Button" parent="CombatTurnContent"]
+[node name="FightButton" type="TextureButton" parent="CombatTurnContent"]
 offset_left = 33.0
 offset_top = 140.0
-offset_right = 105.0
-offset_bottom = 180.0
-icon = ExtResource("3_eji1r")
-flat = true
+offset_right = 97.0
+offset_bottom = 172.0
+focus_neighbor_right = NodePath("../ItemButton")
+texture_normal = ExtResource("3_eji1r")
+texture_focused = ExtResource("4_d0ttf")
 
-[node name="ItemButton" type="Button" parent="CombatTurnContent"]
+[node name="ItemButton" type="TextureButton" parent="CombatTurnContent"]
 offset_left = 216.0
 offset_top = 140.0
 offset_right = 288.0
 offset_bottom = 180.0
-icon = ExtResource("4_3f4ra")
-flat = true
+focus_neighbor_left = NodePath("../FightButton")
+texture_normal = ExtResource("4_3f4ra")
+texture_focused = ExtResource("7_geuww")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 8
@@ -234,7 +238,7 @@ theme = SubResource("Theme_8j7k3")
 theme_override_fonts/font = ExtResource("3_kt7ca")
 text = "1.54 X"
 
-[node name="PlayerHealth" type="TextureProgressBar" parent="DynamicUI"]
+[node name="PlayerHealth" type="TextureProgressBar" parent="DynamicUI" groups=["player_health"]]
 offset_left = 110.0
 offset_top = 160.0
 offset_right = 210.0

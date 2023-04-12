@@ -5,6 +5,8 @@ var player_base_damage: int = 10
 
 var enemy_sprite: Sprite2D
 var enemy_health: int
+var enemy_damage: int = 10
+
 var sub_combat_enemy_array: Array[Array]
 var health: int
 var multiplier: float = .25
@@ -30,7 +32,9 @@ func init(enemy_sprite: Sprite2D, enemy_health: int, sub_combat_enemy_array: Arr
 	self.enemy_sprite.name = "EnemySprite"
 	add_child(self.enemy_sprite)
 	
+	$CombatTurnContent/FightButton.grab_focus()
 	self.player.connect("death", end_combat)
+	
 	
 func setup_combat_minigame():
 	self.player.position.x = 160
@@ -58,11 +62,18 @@ func end_combat():
 	set_in_combat_minigame(false)
 	damage_enemy(player_base_damage * multiplier)
 	multiplier = .25
+	$CombatTurnContent/FightButton.grab_focus()
+	await get_tree().create_timer(1).timeout
+	damage_player(enemy_damage)
+	print(enemy_damage)
 
 func damage_enemy(damage: int):
 	enemy_health -= damage
 	get_tree().get_first_node_in_group("enemy_health").value = enemy_health
-	print(get_tree().get_first_node_in_group("enemy_health").value)
+	
+func damage_player(damage: int):
+	health -= damage
+	get_tree().get_first_node_in_group("player_health").value = health
 
 func _ready():
 	var test_sprite = Sprite2D.new()
