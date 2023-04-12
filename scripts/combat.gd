@@ -75,6 +75,12 @@ func damage_player(damage: int):
 	health -= damage
 	get_tree().get_first_node_in_group("player_health").value = health
 
+func win():
+	print("won!")
+
+func loss():
+	print("L")
+
 func _ready():
 	var test_sprite = Sprite2D.new()
 	test_sprite.texture = load("res://assets/sprite/test-enemy-sprite.png")
@@ -82,10 +88,10 @@ func _ready():
 	init(test_sprite, 100, [[{
 		"packed_scene": enemy_spawner_packed_scene,
 		"positions_to_spawn": [
-			Vector2i(78,109),
-			Vector2i(80,150),
-			Vector2i(240,109),
-			Vector2i(240,150)
+			Vector2i(78,99),
+			Vector2i(80,140),
+			Vector2i(240,99),
+			Vector2i(240,140)
 		]
 	}]], 100)
 
