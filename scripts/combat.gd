@@ -14,6 +14,8 @@ var multiplier: float = .25
 var in_combat_minigame: bool = false
 var sub_combat_enemy_array_index: int = 0
 
+var time_since_load: float = 0
+
 # The sub combat enemy array, is an array that is iterated through every turn and the current index is the array of enemies that are spawned by default.
 func init(enemy_sprite: Sprite2D, enemy_health: int, sub_combat_enemy_array: Array[Array], health: int):
 	# Set combat parameters when scene is changed to combat.
@@ -101,10 +103,12 @@ func _ready():
 		]
 	}]], 100)
 
-func _process(delta):
+func _process(delta): 
+	time_since_load += delta
 	if in_combat_minigame:
 		multiplier += multiplier * (delta/6)
 	get_tree().get_first_node_in_group("ui_multiplier").text = "%3.2f X" % multiplier
+	$BackgroundForShaders.material.set_shader_parameter("time", time_since_load)
 
 
 func _on_fight_button_pressed():

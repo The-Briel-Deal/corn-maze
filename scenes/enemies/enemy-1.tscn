@@ -1,17 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgjjp7fphsvrn"]
+[gd_scene load_steps=12 format=3 uid="uid://bgjjp7fphsvrn"]
 
+[ext_resource type="Shader" path="res://shaders/enemy-1.gdshader" id="1_5fmle"]
 [ext_resource type="Texture2D" uid="uid://1700wysgrjqq" path="res://assets/sprite/enemy-dot.png" id="1_8l6cu"]
 [ext_resource type="Script" path="res://scripts/enemy-1.gd" id="1_ctcl1"]
+
+[sub_resource type="Gradient" id="Gradient_l5fyy"]
+offsets = PackedFloat32Array(0, 0.594937, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.801688, 0.801688, 0.801688, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ghjru"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0b7x5"]
+color_ramp = SubResource("Gradient_l5fyy")
+noise = SubResource("FastNoiseLite_ghjru")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efhmj"]
+render_priority = 0
+shader = ExtResource("1_5fmle")
+shader_parameter/gradientRemap = Vector4(0.146, 0.473, 0.141, 0.111)
+shader_parameter/beamRemap = Vector4(0.392, 0, 0, 0)
+shader_parameter/color1 = Color(0, 0, 0.894118, 1)
+shader_parameter/color2 = Color(0, 1, 0, 1)
+shader_parameter/scale = Vector3(1, 50, 0)
+shader_parameter/threshold = 0.993
+shader_parameter/offset = 1.5
+shader_parameter/noise = SubResource("NoiseTexture2D_0b7x5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x46w3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8vv2w"]
+seamless_blend_skirt = 0.181
+noise = SubResource("FastNoiseLite_x46w3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfel6"]
+render_priority = 0
+shader = ExtResource("1_5fmle")
+shader_parameter/gradientRemap = Vector4(0.097, 0.168, 0.067, 0.086)
+shader_parameter/beamRemap = Vector4(0.035, 0.548, 0.136, 0.095)
+shader_parameter/color1 = null
+shader_parameter/color2 = Color(0, 1, 1, 1)
+shader_parameter/scale = Vector3(2.854, 50.296, 0.11)
+shader_parameter/threshold = 4.383
+shader_parameter/offset = 1.62
+shader_parameter/noise = SubResource("NoiseTexture2D_8vv2w")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hcydo"]
 radius = 4.12311
 
 [node name="Enemy1" type="CharacterBody2D" groups=["enemy"]]
+material = SubResource("ShaderMaterial_efhmj")
 collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_ctcl1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dfel6")
 texture = ExtResource("1_8l6cu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
