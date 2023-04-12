@@ -65,15 +65,21 @@ func end_combat():
 	$CombatTurnContent/FightButton.grab_focus()
 	await get_tree().create_timer(1).timeout
 	damage_player(enemy_damage)
-	print(enemy_damage)
 
 func damage_enemy(damage: int):
 	enemy_health -= damage
 	get_tree().get_first_node_in_group("enemy_health").value = enemy_health
+	await get_tree().create_timer(1).timeout
+	if (enemy_health <= 0):
+		win()
+	
 	
 func damage_player(damage: int):
 	health -= damage
 	get_tree().get_first_node_in_group("player_health").value = health
+	await get_tree().create_timer(1).timeout
+	if (health <= 0):
+		loss()
 
 func win():
 	print("won!")
